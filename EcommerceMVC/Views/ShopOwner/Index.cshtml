@@ -1,24 +1,85 @@
 ﻿@model Ecomerce.Application.ViewModels.ShopOwnerViewModel
+<div>
+    <div class="form-group text-center">
+        @*<button type="button" class="btn" data-toggle="modal" data-target="#addShop" onclick="openModel();">Add New Shop</button>*@
+        <button type="button" class="btn btn-info td1" id="HrefUserDocuments" data-toggle="modal" data-target="#UserDocuments">Add new ShopOwner</button>
+    </div>
+    <table id="book" class="table table-bordered table-hover">
 
-<div class="form-group text-center">
-    <button type="button" class="btn" data-toggle="modal" data-target="#addShop" id="ShopButton">Add New Shop</button>
-</div>
-<table id="book" class="table table-bordered table-hover">
-
-    <thead>
-        <tr class="">
-            <th>OwnerName</th>
-            <th>ShopName</th>
-        </tr>
-
-    </thead>
-    <tbody>
-        @foreach (var book in Model.ShopOwners)
-        {
-            <tr style="height: 60px;">
-                <td>@book.OwnerName</td>
-                <td>@book.ShopName</td>
+        <thead>
+            <tr class="">
+                <th>OwnerName</th>
+                <th>ShopName</th>
             </tr>
-        }
-    </tbody>
-</table>
+
+        </thead>
+        <tbody>
+            @foreach (var book in Model.ShopOwners)
+            {
+                <tr style="height: 60px;">
+                    <td>@book.OwnerName</td>
+                    <td>@book.ShopName</td>
+                        
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="modal fade" id="UserDocuments" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-box">
+                    <form class="profile-form">
+                        <div class="modal-header text-center">
+                            <h5>Add New Shop and Owner</h5>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control" id="OwnerName" name="OwnerName" placeholder="Owner Name">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" id="ShopName" name="ShopName" placeholder="Shop Name">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="form-btn-area">
+                                <button type="button" class="btn btn-default" id="marketAdd" onclick="add(document.getElementById('OwnerName').value,document.getElementById('ShopName').value)">Add Shop</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><span>Close</span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        function add(OwnerName, ShopName) {
+                console.log('a');
+                $("#marketAdd").prop("disabled", true);
+                $("#SpantxtMarketName").hide();
+                var OwnerName = OwnerName;
+                var ShopName = ShopName;
+                $.ajax({
+                    url: "/ShopOwner/CreateShop",
+                    data: { OwnerName: OwnerName, ShopName: ShopName },
+                    type: 'POST',
+                    success: function (data) {
+                        console.log('success');
+                        $('#addMarkets').modal('hide');
+                        $(".messageAlert").show();
+                        $(".messageAlert").html(data.message);
+                        $('.messageAlert').fadeOut(20000);
+                        window.setTimeout(function () { location.reload() }, 3000)
+                    }
+                });
+            }
+
+    </script>
+}

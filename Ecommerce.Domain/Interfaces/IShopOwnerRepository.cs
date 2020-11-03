@@ -9,5 +9,6 @@ namespace Ecommerce.Domain.Interfaces
     public interface IShopOwnerRepository
     {
         IEnumerable<ShopOwner> GetShopOwners();
+        void AddShopOwner(ShopOwner shopOwner);
     }
 }

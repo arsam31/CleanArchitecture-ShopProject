@@ -9,5 +9,6 @@ namespace Ecomerce.Application.Interfaces
     public interface IShopOwner
     {
         ShopOwnerViewModel GetShopOwner();
+        void AddShopOwner(ShopOwnerViewModel shopOwnerViewModel);
     }
 }

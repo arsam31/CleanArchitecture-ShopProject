@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ecomerce.Application.Interfaces;
 using Ecomerce.Application.ViewModels;
+using Ecommerce.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EcommerceMVC.Controllers
@@ -20,6 +21,12 @@ namespace EcommerceMVC.Controllers
             ShopOwnerViewModel model = _shopOwner.GetShopOwner();
             return View(model);
         }
-
+        [HttpPost]
+        public ActionResult CreateShop(ShopOwnerViewModel model)
+        {
+            _shopOwner.AddShopOwner(model);
+            return RedirectToAction("Index");
+        }
     }
 }
+

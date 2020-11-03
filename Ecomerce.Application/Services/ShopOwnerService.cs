@@ -26,6 +26,11 @@ namespace Ecomerce.Application.Services
                 ShopOwners = _shopOwnerRepository.GetShopOwners()
             };
         }
+        public void AddShopOwner(ShopOwnerViewModel shopOwnerViewModel)
+        {
+            var entity = _mapper.Map<ShopOwner>(shopOwnerViewModel);
+            _shopOwnerRepository.AddShopOwner(entity);
+        }
 
     }
 }

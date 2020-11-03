@@ -7,11 +7,12 @@ using System.Text;
 
 namespace Ecomerce.Application.AutoMapper
 {
-    class MappingProfile : Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
-            CreateMap<ShopOwner, ShopOwnerViewModel>();
+            //CreateMap<ShopOwner, ShopOwnerViewModel>();
+            CreateMap<ShopOwnerViewModel, ShopOwner>().ReverseMap();
         }
     }
 }
